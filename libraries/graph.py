@@ -1,6 +1,6 @@
 from O365 import Account, MSGraphProtocol
 import bleach
-
+import from robot.api import logger 
 # https://pypi.org/project/O365/
 # Add App registration to your Azure AD
 # - Set client secret
@@ -19,6 +19,7 @@ def  get_email_content(client_id: str,
                       tenant_id=tenant)
     
     account.authenticate()
+    logger.console("Authenticated OK")
     mailbox = account.mailbox(resource=email)
 
     inbox = mailbox.inbox_folder()
