@@ -7,5 +7,5 @@ Suite Teardown     Close All Browsers
 
 *** Test Cases ***
 Check Email Content
-    ${body}=  get_email_content  ${client_id}  ${client_secret}  ${tenant_id}  ${email_address}  ${email_subject}
+    ${body}=  Get Email Content  ${client_id}  ${client_secret}  ${tenant_id}  ${email_address}  ${email_subject}
     Evaluate  "${body}" == "${email_body}"
