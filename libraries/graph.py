@@ -23,6 +23,8 @@ def  get_email_content(client_id: str,
     account.authenticate()
     logger.console("authenticated OK")
     mailbox = account.mailbox(resource=email)
+    folders = mailbox.get_folders()
+    logger.console(folders)
 
     inbox = mailbox.inbox_folder()
 
