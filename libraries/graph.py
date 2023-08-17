@@ -1,6 +1,7 @@
 from O365 import Account, MSGraphProtocol
 import bleach
-import from robot.api import logger 
+from robot.api import logger
+
 # https://pypi.org/project/O365/
 # Add App registration to your Azure AD
 # - Set client secret
@@ -17,16 +18,19 @@ def  get_email_content(client_id: str,
     account = Account(credentials, 
                       auth_flow_type='credentials',
                       tenant_id=tenant)
-    
+
+    logger.console("trying to authenticate..")
     account.authenticate()
-    logger.console("Authenticated OK")
+    logger.console("authenticated OK")
     mailbox = account.mailbox(resource=email)
 
     inbox = mailbox.inbox_folder()
 
     query = mailbox.new_query().on_attribute('subject').contains(subject)
-
+    logger.console("fetching messages...")
     messages = inbox.get_messages(limit=25, query=query)
+    logger.console("messages fetched")
     message = list(messages)[-1]
+    logger.console(message)
     raw = bleach.clean(message.body,tags=[],strip=True)
     return raw.lstrip()
